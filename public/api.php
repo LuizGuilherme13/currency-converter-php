@@ -1,31 +1,26 @@
 <?php
-function get_usd_rate()
-{
-    $url = 'https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda=\'USD\'&@dataInicial=\'04-03-2024\'&@dataFinalCotacao=\'04-05-2024\'&$top=3&$orderby=dataHoraCotacao%20desc&$format=json&$select=cotacaoCompra,dataHoraCotacao';
 
-    $data = json_decode(file_get_contents($url), true);
-    $cotacao = (float) $data['value'][0]['cotacaoCompra'];
+$valueFrom = (float) $_POST['value-from'];
+$moedaA = $_POST['select-from'];
+$moedaB = $_POST['select-to'];
+$url = "https://economia.awesomeapi.com.br/json/last/{$moedaA}-{$moedaB}";
 
+if ($valueFrom > 0) {
 
-    return round($cotacao, 2, PHP_ROUND_HALF_UP);
-}
+  $curl = curl_init();
+  curl_setopt_array($curl, [
+    CURLOPT_URL => $url,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+  ]);
 
-function get_eur_rate()
-{
-    $url = 'https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda=\'EUR\'&@dataInicial=\'04-03-2024\'&@dataFinalCotacao=\'04-05-2024\'&$top=3&$orderby=dataHoraCotacao%20desc&$format=json&$select=cotacaoCompra,dataHoraCotacao';
+  $response = curl_exec($curl);
+  curl_close($curl);
 
-    $data = json_decode(file_get_contents($url), true);
-    $cotacao = (float) $data['value'][0]['cotacaoCompra'];
+  $json = json_decode($response, true);
 
-    return round($cotacao, 2, PHP_ROUND_HALF_UP);
-}
+  $value = (float) $json["{$moedaA}{$moedaB}"]['bid'] * $valueFrom;
 
-function get_gbp_rate()
-{
-    $url = 'https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda=\'GBP\'&@dataInicial=\'04-03-2024\'&@dataFinalCotacao=\'04-05-2024\'&$top=3&$orderby=dataHoraCotacao%20desc&$format=json&$select=cotacaoCompra,dataHoraCotacao';
+  echo round($value, 2);
 
-    $data = json_decode(file_get_contents($url), true);
-    $cotacao = (float) $data['value'][0]['cotacaoCompra'];
-
-    return round($cotacao, 2, PHP_ROUND_HALF_UP);
 }
