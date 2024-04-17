@@ -4,6 +4,8 @@
     box-sizing: border-box;
 }
 
+html {}
+
 body {
     background-color: #8c52ff;
     height: 100vh;
@@ -69,4 +71,34 @@ button {
 
 button:hover {
     opacity: 0.8;
+}
+
+@media(max-width: 768px) {
+    img {
+        height: 200px;
+    }
+
+    #container {
+        width: 90%;
+    }
+}
+
+@media(max-width: 480px) {
+    img {
+        height: 250px;
+    }
+
+    #container {
+        width: 90%;
+    }
+
+    #convert-area {
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    p {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 }
