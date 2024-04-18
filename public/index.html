@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous" defer></script>
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous">
     <script src="./assets/js/script.js" defer></script>
     <title>Currency Converter</title>
 </head>
@@ -17,7 +19,7 @@
     <div id="container">
         <form action="" method="post">
             <div id="convert-area">
-                <div style="display: flex;">
+                <div id="convert-from">
                     <select name="select-from" id="select-from">
                         <option value="BRL" selected="selected">🇧🇷 Real brasileiro</option>
                         <option value="USD">🇺🇸 Dólar americano</option>
@@ -27,9 +29,11 @@
                     <input type="text" name="value-from" id="value-from" placeholder="$0" value="1" autocomplete="off">
                 </div>
 
-                <p>X</p>
+                <button type="button">
+                    <i class="fa-solid fa-repeat fa-2x"></i>
+                </button>
 
-                <div style="display: flex;">
+                <div id="convert-to">
                     <select name="select-to" id="select-to">
                         <option value="BRL">🇧🇷 Real brasileiro</option>
                         <option value="USD" selected="selected">🇺🇸 Dólar americano</option>
@@ -38,10 +42,6 @@
                     </select>
                     <input type="text" name="value-to" id="value-to" placeholder="$0">
                 </div>
-            </div>
-
-            <div style="display: flex; justify-content: center; margin-top: 20px;">
-                <button type="submit">Converter</button>
             </div>
         </form>
     </div>
